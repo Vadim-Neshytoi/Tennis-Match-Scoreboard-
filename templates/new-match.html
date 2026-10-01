@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Scoreboard | New Match</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js"></script>
+</head>
+
+<body>
+<header class="header">
+    <section class="nav-header">
+        <div class="brand">
+            <div class="nav-toggle">
+                <img src="/static/images/menu.png" alt="Logo" class="logo">
+            </div>
+            <span class="logo-text">TennisScoreboard</span>
+        </div>
+
+        <div>
+            <nav class="nav-links">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/matches">Matches</a>
+            </nav>
+        </div>
+    </section>
+</header>
+
+<main>
+    <div class="container">
+        <div>
+            <h1>Start new match</h1>
+
+            <div class="new-match-image"></div>
+
+            <div class="form-container center">
+                <form method="POST" action="/new-match">
+                    <label class="label-player" for="playerOne">
+                        Player one
+                    </label>
+                    <input
+                        class="input-player"
+                        id="playerOne"
+                        name="player_1_name"
+                        placeholder="Name"
+                        type="text"
+                        required
+                        title="Enter a name"
+                        value="{{ player_1_name or '' }}"
+                    >
+
+                    <label class="label-player" for="playerTwo">
+                        Player two
+                    </label>
+                    <input
+                        class="input-player"
+                        id="playerTwo"
+                        name="player_2_name"
+                        placeholder="Name"
+                        type="text"
+                        required
+                        title="Enter a name"
+                        value="{{ player_2_name or '' }}"
+                    >
+
+                    <input
+                        class="form-button"
+                        type="submit"
+                        value="Start"
+                    >
+                </form>
+                {% if error %}
+                    <div
+                        id="validation-notification"
+                        class="validation-notification"
+                        role="alert"
+                    >
+                        <span class="validation-notification-icon">!</span>
+                        <span class="validation-notification-message">
+                            {% if error.field == "player1" %}
+                                Player one: {{ error.message }}
+                            {% elif error.field == "player2" %}
+                                Player two: {{ error.message }}
+                            {% else %}
+                                {{ error.message }}
+                            {% endif %}
+                        </span>
+                        <button
+                            type="button"
+                            class="validation-notification-close"
+                            aria-label="Close"
+                        >
+                            &times;
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer">
+        <p>
+            &copy; Tennis Scoreboard, project from
+            <a href="https://zhukovsd.github.io/java-backend-learning-course/">
+                zhukovsd/java-backend-learning-course
+            </a>
+            roadmap.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

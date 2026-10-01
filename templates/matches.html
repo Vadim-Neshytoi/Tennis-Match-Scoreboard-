@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Scoreboard | Finished Matches</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js"></script>
+</head>
+
+<body>
+<header class="header">
+    <section class="nav-header">
+        <div class="brand">
+            <div class="nav-toggle">
+                <img src="/static/images/menu.png" alt="Logo" class="logo">
+            </div>
+            <span class="logo-text">TennisScoreboard</span>
+        </div>
+
+        <div>
+            <nav class="nav-links">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/matches">Matches</a>
+            </nav>
+        </div>
+    </section>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Matches</h1>
+
+        <form class="input-container" method="GET" action="/matches">
+            <input
+                class="input-filter"
+                name="filter_by_player_name"
+                placeholder="Filter by name"
+                type="text"
+            >
+
+            <div>
+                <button type="submit" class="filter-button filter-button-submit">
+                    Filter
+                </button>
+
+                <a href="/matches" class="filter-button filter-button-reset">
+                    Reset Filter
+                </a>
+            </div>
+        </form>
+
+        {% if matches %}
+        <table class="table-matches">
+            <thead>
+            <tr>
+                <th>Player One</th>
+                <th>Player Two</th>
+                <th>Winner</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for match in matches %}
+            <tr>
+                <td>{{ match.player1 }}</td>
+                <td>{{ match.player2 }}</td>
+                <td>
+                    <span class="winner-name-td">{{ match.winner }}</span>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No finished matches found.</p>
+        {% endif %}
+
+        {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if pagination.previous_url %}
+            <a
+                class="prev"
+                href="{{ pagination.previous_url }}"
+            >
+                &lt;
+            </a>
+            {% endif %}
+
+            {% for page in pagination.pages %}
+            <a
+                class="num-page{% if page.number == current_page %} current{% endif %}"
+                href="{{ page.url }}"
+            >
+                {{ page.number }}
+            </a>
+            {% endfor %}
+
+            {% if pagination.next_url %}
+            <a
+                class="next"
+                href="{{ pagination.next_url }}"
+            >
+                &gt;
+            </a>
+            {% endif %}
+        </div>
+        <a href="/" class="homepage-action-button form-button">На Главный Экран</a>
+        {% endif %}
+    </div>
+</main>
+
+<footer>
+    <div class="footer">
+        <p>
+            &copy; Tennis Scoreboard, project from
+            <a href="https://zhukovsd.github.io/java-backend-learning-course/">
+                zhukovsd/java-backend-learning-course
+            </a>
+            roadmap.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Runtime dependencies
+Jinja2==3.1.6
+PyMySQL==1.2.3
+SQLAlchemy==2.0.52
+Waitress==3.0.2
+Werkzeug==3.1.8
+alembic==1.20.0
+
+# Test dependencies
+beautifulsoup4==4.15.0
